@@ -14,7 +14,7 @@ return {
         "pyright",
         "lua_ls",
         "texlab",
-        "tsserver",
+        --"tsserver",
       },
     },
   },
