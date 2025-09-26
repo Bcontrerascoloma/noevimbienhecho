@@ -1,8 +1,10 @@
+-- ~/.config/nvim/lua/plugins/lsp.lua
+
 return {
   {
     "williamboman/mason.nvim",
     build = ":MasonUpdate",
-    config = true,
+    config = true, -- This is a shorthand for the default config function
   },
   {
     "williamboman/mason-lspconfig.nvim",
@@ -12,47 +14,18 @@ return {
         "pyright",
         "lua_ls",
         "texlab",
-        "tsserver", -- solo si trabajas con TypeScript/JavaScript
+        "tsserver",
       },
     },
   },
   {
     "neovim/nvim-lspconfig",
+    -- The config function will be called by lazy.nvim
     config = function()
-      local lspconfig = require("lspconfig")
-      lspconfig.pyright.setup({})
-      lspconfig.lua_ls.setup({})
-      lspconfig.texlab.setup({})
-      -- lspconfig.tsserver.setup({}) -- descomenta si usas TypeScript
-    end,
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-    },
-    config = function()
-      local cmp = require("cmp")
-      local luasnip = require("luasnip")
-
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ["<Tab>"] = cmp.mapping.select_next_item(),
-          ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
-        }),
-        sources = {
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-        },
-      })
+      -- This setup is handled automatically by mason-lspconfig,
+      -- but you can add custom setups here if needed.
+      -- require('lspconfig').pyright.setup({}) is not strictly necessary
+      -- if you use the defaults provided by mason-lspconfig.
     end,
   },
 }

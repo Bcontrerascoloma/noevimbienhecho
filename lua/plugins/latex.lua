@@ -1,12 +1,20 @@
+-- ~/.config/nvim/lua/plugins/latex.lua
+
 return {
   "lervag/vimtex",
-  lazy = false,
-  init = function()
-    vim.g.vimtex_view_method = "general"
-    vim.g.vimtex_view_general_viewer = "evince"
-    vim.g.vimtex_view_general_options = "@pdf"
+  ft = { "tex" }, -- Use ft (filetype) to lazy load for better performance
+  config = function()
+    vim.g.vimtex_view_method = "zathura" -- Changed to zathura as it's often better integrated
     vim.g.vimtex_compiler_method = "latexmk"
-    vim.g.vimtex_imaps_enabled = 0
+    vim.g.vimtex_compiler_latexmk = {
+        options = {
+            '-pdf',
+            '-shell-escape',
+            '-verbose',
+            '-file-line-error',
+            '-synctex=1',
+            '-interaction=nonstopmode'
+        }
+    }
   end,
 }
-
